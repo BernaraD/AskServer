@@ -1,21 +1,21 @@
 import mongoose from 'mongoose';
-import Answers from '../Model';
+import Answer from '../Model';
 import message from '../../utils/messages';
 
-export default function createAnswersQuery(values) {
+export default function createAnswerQuery(values) {
   const _id = values._id || new mongoose.Types.ObjectId();
 
-  const answers = new Answers({
+  const answer = new Answer({
     _id,
     ...values,
   });
 
-  return answers
+  return answer
     .save()
     .then(() => {
-      return message.success('Answers created', _id);
+      return message.success('Answer created', _id);
     })
     .catch((err) => {
-      return message.fail('Answers create error', err);
+      return message.fail('Answer create error', err);
     });
 }

@@ -2,13 +2,13 @@ import { Router } from 'express';
 import serviceHeader from '../utils/serviceHeader';
 import userCheckPerm from '../permission/userCheckPerm';
 
-import answersCreate from './controllers/create';
+import answerCreate from './controllers/create';
 import userCheckAuth from '../user/middlewares/userCheckAuth';
-import answersGetById from './controllers/getById';
-import answersSearch from './controllers/search';
-import answersUpdateById from './controllers/updateById';
-import answersDeleteById from './controllers/deleteById';
-import answersStats from './controllers/stats';
+import answerGetById from './controllers/getById';
+import answerSearch from './controllers/search';
+import answerUpdateById from './controllers/updateById';
+import answerDeleteById from './controllers/deleteById';
+import answerStats from './controllers/stats';
 import pauseController from '../core/pauseController';
 
 const router = Router();
@@ -16,57 +16,57 @@ const router = Router();
 // CRUD
 
 router.get(
-  '/stats', // GET /localhost:5000/answers/stats
-  serviceHeader('answersStats'), // mark request
+  '/stats', // GET /localhost:5000/answer/stats
+  serviceHeader('answerStats'), // mark request
   userCheckAuth, // midlware  needed to check if user has rights to do the request
-  userCheckPerm('answers.search.own'), // midlware has rights to do this operation such as answers.search.own
+  userCheckPerm('answer.search.own'), // midlware has rights to do this operation such as answer.search.own
   pauseController,
-  answersStats,
+  answerStats,
 );
 
 router.post(
-  '/', // POST /localhost:5000/answers/stats
-  serviceHeader('answersCreate'),
+  '/', // POST /localhost:5000/answer/stats
+  serviceHeader('answerCreate'),
   userCheckAuth,
-  userCheckPerm('answers.create.own'),
+  userCheckPerm('answer.create.own'),
   // pauseController,
-  answersCreate,
+  answerCreate,
 );
 
 router.get(
-  '/:answersId',
-  serviceHeader('answersGetById'),
+  '/:answerId',
+  serviceHeader('answerGetById'),
   userCheckAuth,
-  userCheckPerm('answers.get.own'),
+  userCheckPerm('answer.get.own'),
   pauseController,
-  answersGetById,
+  answerGetById,
 );
 
 router.post(
   '/search',
-  serviceHeader('answersSearch'),
+  serviceHeader('answerSearch'),
   userCheckAuth,
-  userCheckPerm('answers.search.own'),
+  userCheckPerm('answer.search.own'),
   pauseController,
-  answersSearch,
+  answerSearch,
 );
 
 router.patch(
-  '/:answersId',
-  serviceHeader('answersUpdateById'),
+  '/:answerId',
+  serviceHeader('answerUpdateById'),
   userCheckAuth,
-  userCheckPerm('answers.update.own'),
+  userCheckPerm('answer.update.own'),
   pauseController,
-  answersUpdateById,
+  answerUpdateById,
 );
 
 router.delete(
-  '/:answersId',
-  serviceHeader('answersDeleteById'),
+  '/:answerId',
+  serviceHeader('answerDeleteById'),
   userCheckAuth,
-  userCheckPerm('answers.delete.own'),
+  userCheckPerm('answer.delete.own'),
   pauseController,
-  answersDeleteById,
+  answerDeleteById,
 );
 
 export default router;

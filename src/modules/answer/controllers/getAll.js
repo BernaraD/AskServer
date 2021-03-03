@@ -1,4 +1,4 @@
-import Answers from '../Model';
+import Answer from '../Model';
 import message from '../../utils/messages';
 import analytics from '../../analytics/controllers/analytics';
 import { get } from 'lodash';
@@ -7,29 +7,29 @@ import { get } from 'lodash';
 // Использовать только на начальных этапах
 // так как ответ может быть слишком большим
 
-const answersGetAll = (req, res) => {
+const answerGetAll = (req, res) => {
   // Получаем id текущего пользователя
   const userId = get(req, 'userData.userId');
 
   // Найти все
-  Answers.find()
+  Answer.find()
     .sort({ createdAt: -1 })
     // .select('name') // если нужно получить отдельные поля
     .exec()
     .then((docs) => {
-      res.status(200).json(message.success('Get all answerss ok', docs));
+      res.status(200).json(message.success('Get all answers ok', docs));
     })
     .catch((error) => {
-      const analyticsId = analytics('ANSWERS_GET_ALL_ERROR', {
+      const analyticsId = analytics('ANSWER_GET_ALL_ERROR', {
         error,
         body: req.body,
-        entity: 'Answers',
+        entity: 'Answer',
         user: userId,
-        controller: 'answersGetAll',
+        controller: 'answerGetAll',
       });
 
-      res.status(400).json(message.fail('Answers get all error', analyticsId));
+      res.status(400).json(message.fail('Answer get all error', analyticsId));
     });
 };
 
-export default answersGetAll;
+export default answerGetAll;

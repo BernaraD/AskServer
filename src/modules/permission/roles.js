@@ -16,10 +16,18 @@ const question = [
   'question.delete.own',
 ];
 
-const roles = {
-  new: ['user.auth', ...base, ],
+const answer = [
+  'answer.create.own',
+  'answer.get.own',
+  'answer.search.own',
+  'answer.update.own',
+  'answer.delete.own',
+];
 
-  verified: ['user,auth', ...base, ...question],
+const roles = {
+  new: ['user.auth', ...base, ...answer],
+
+  verified: ['user.auth', ...base, ...question, ...answer],
 
   admin: [
     // USER

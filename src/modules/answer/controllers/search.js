@@ -1,4 +1,4 @@
-import Answers from '../Model';
+import Answer from '../Model';
 import message from '../../utils/messages';
 import { get } from 'lodash';
 import escapeRegExp from '../../utils/escapeRegExp';
@@ -7,7 +7,7 @@ import paginationSearchFormatter from '../../utils/paginationSearchFormatter';
 
 // Поиск с пагинацией
 
-const answersSearch = async (req, res) => {
+const answerSearch = async (req, res) => {
   const userId = get(req, 'userData.userId');
 
   try {
@@ -30,8 +30,8 @@ const answersSearch = async (req, res) => {
     //   query.accessType = { $eq: accessType };
     // }
 
-    const totalCountPromise = Answers.countDocuments(query); // Находим кол-во результатов
-    const searchPromise = answersSearchQuery({ query, page, limit }); // Находим результат
+    const totalCountPromise = Answer.countDocuments(query); // Находим кол-во результатов
+    const searchPromise = answerSearchQuery({ query, page, limit }); // Находим результат
 
     // Запускаем запросы параллельно
     const PromiseAllResult = await Promise.all([totalCountPromise, searchPromise]);
@@ -46,29 +46,29 @@ const answersSearch = async (req, res) => {
       searchResult: searchResult.payload,
     });
 
-    res.status(200).json(message.success('AnswersSearch ok', result));
+    res.status(200).json(message.success('AnswerSearch ok', result));
   } catch (error) {
-    const analyticsId = analytics('ANSWERS_SEARCH_ERROR', {
+    const analyticsId = analytics('ANSWER_SEARCH_ERROR', {
       error,
       body: req.body,
-      entity: 'Answers',
+      entity: 'Answer',
       user: userId,
-      controller: 'answersSearch',
+      controller: 'answerSearch',
     });
 
-    res.status(400).json(message.fail('AnswersSearch error', analyticsId));
+    res.status(400).json(message.fail('AnswerSearch error', analyticsId));
   }
 };
 
-export default answersSearch;
+export default answerSearch;
 
-function answersSearchQuery({ query, page, limit }) {
-  return Answers.find(query)
+function answerSearchQuery({ query, page, limit }) {
+  return Answer.find(query)
     .sort({ createdAt: -1 })
     .limit(limit)
     .skip(limit * (page - 1))
     .exec()
     .then((docs) => {
-      return message.success('Answers found', docs);
+      return message.success('Answer found', docs);
     });
 }

@@ -1,19 +1,19 @@
-import Answers from '../Model';
+import Answer from '../Model';
 import message from '../../utils/messages';
 
-const answersUpdateByIdQuery = ({ answersId, values }) => {
-  return Answers.updateOne({ _id: answersId }, { $set: values }, { runValidators: true })
+const answerUpdateByIdQuery = ({ answerId, values }) => {
+  return Answer.updateOne({ _id: answerId }, { $set: values }, { runValidators: true })
     .exec()
     .then((doc) => {
       if (doc.n) {
-        return message.success('Answers updated');
+        return message.success('Answer updated');
       } else {
-        return message.fail('Answers not found');
+        return message.fail('Answer not found');
       }
     })
     .catch((error) => {
-      return message.fail('Answers update error', error);
+      return message.fail('Answer update error', error);
     });
 };
 
-export default answersUpdateByIdQuery;
+export default answerUpdateByIdQuery;

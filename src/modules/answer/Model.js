@@ -31,4 +31,4 @@ const Schema = mongoose.Schema(
   { timestamps: {}, versionKey: false },
 );
 
-export default mongoose.model('Answers', Schema);
+export default mongoose.model('Answer', Schema);

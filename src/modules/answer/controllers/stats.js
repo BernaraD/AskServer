@@ -1,12 +1,12 @@
-import Answers from '../Model';
+import Answer from '../Model';
 import message from '../../utils/messages';
 import analytics from '../../analytics/controllers/analytics';
 import { get } from 'lodash';
 
-const answersStats = async (req, res) => {
+const answerStats = async (req, res) => {
   const userId = get(req, 'userData.userId');
   try {
-    const totalCount = await Answers.countDocuments();
+    const totalCount = await Answer.countDocuments();
 
     const result = {
       totalCount,
@@ -15,18 +15,18 @@ const answersStats = async (req, res) => {
       totalCountTen: totalCount * 10,
     };
 
-    res.status(200).json(message.success('Answers Stats ok', result));
+    res.status(200).json(message.success('Answer Stats ok', result));
   } catch (error) {
-    const analyticsId = analytics('ANSWERS_STATS_ERROR', {
+    const analyticsId = analytics('ANSWER_STATS_ERROR', {
       error,
       body: req.body,
-      entity: 'Answers',
+      entity: 'Answer',
       user: userId,
-      controller: 'answersStats',
+      controller: 'answerStats',
     });
 
-    res.status(400).json(message.fail('Answers Stats error', analyticsId));
+    res.status(400).json(message.fail('Answer Stats error', analyticsId));
   }
 };
 
-export default answersStats;
+export default answerStats;

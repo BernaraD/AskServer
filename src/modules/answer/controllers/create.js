@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-//import Answers from '../Model';
+//import Answer from '../Model';
 import message from '../../utils/messages';
 import analytics from '../../analytics/controllers/analytics';
 import { get } from 'lodash';
-import createAnswersQuery from '../queries/create';
+import createAnswerQuery from '../queries/create';
 
-export default async function answersCreate(req, res) {
+export default async function answerCreate(req, res) {
   // Создаем id материала который будет создан
   const _id = new mongoose.Types.ObjectId();
 
@@ -16,25 +16,25 @@ export default async function answersCreate(req, res) {
   const name = get(req, 'body.name');
   const description = get(req, 'body.description');
 
-  const createAnswersQueryResult = await createAnswersQuery({
+  const createAnswerQueryResult = await createAnswerQuery({
     _id,
     name,
     description,
     owner: userId,
   });
 
-  if (createAnswersQueryResult.success) {
-    res.status(200).json(createAnswersQueryResult);
+  if (createAnswerQueryResult.success) {
+    res.status(200).json(createAnswerQueryResult);
   } else {
-    const analyticsId = analytics('ANSWERS_CREATE_ERROR', {
-      error: createAnswersQueryResult.payload,
+    const analyticsId = analytics('ANSWER_CREATE_ERROR', {
+      error: createAnswerQueryResult.payload,
       body: req.body,
-      entity: 'Answers',
+      entity: 'Answer',
       entityId: _id,
       user: userId,
-      controller: 'answersCreate',
+      controller: 'answerCreate',
     });
 
-    res.status(400).json(message.fail('Answers create error', analyticsId));
+    res.status(400).json(message.fail('Answer create error', analyticsId));
   }
 }
