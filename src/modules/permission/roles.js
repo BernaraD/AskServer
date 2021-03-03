@@ -1,4 +1,4 @@
-export const listRoles = ['new', 'businessOwner', 'impersonate'];
+export const listRoles = ['new', 'verified', 'impersonate'];
 
 const base = [
   'base.create.own',
@@ -8,8 +8,18 @@ const base = [
   'base.delete.own',
 ];
 
+const question = [
+  'question.create.own',
+  'question.get.own',
+  'question.search.own',
+  'question.update.own',
+  'question.delete.own',
+];
+
 const roles = {
-  new: ['user.auth', ...base],
+  new: ['user.auth', ...base, ],
+
+  verified: ['user,auth', ...base, ...question],
 
   admin: [
     // USER
