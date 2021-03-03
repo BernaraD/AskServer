@@ -27,7 +27,7 @@ const questionDeleteById = (req, res) => {
         entity: 'Question',
         entityId: _id,
         user: userId,
-        controller: 'questionCreate',
+        controller: 'questionDeleteById',
       });
 
       res.status(400).json(message.fail('Question delete error', analyticsId));

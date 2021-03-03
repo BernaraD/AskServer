@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-//import Question from '../Model';
 import message from '../../utils/messages';
 import analytics from '../../analytics/controllers/analytics';
 import { get } from 'lodash';
@@ -21,6 +20,7 @@ export default async function questionCreate(req, res) {
     name,
     description,
     owner: userId,
+    resolved: false,
   });
 
   if (createQuestionQueryResult.success) {

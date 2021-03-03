@@ -20,6 +20,10 @@ const Schema = mongoose.Schema(
       required: true,
     },
 
+    resolved: {
+      type: Boolean,
+      required: true,
+    },
     // tags: [
     //   {
     //     type: mongoose.Schema.Types.ObjectId,
