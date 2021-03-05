@@ -1,4 +1,4 @@
-import Question from '../Model';
+import Practice from '../Model';
 import message from '../../utils/messages';
 import { get } from 'lodash';
 import escapeRegExp from '../../utils/escapeRegExp';
@@ -7,7 +7,7 @@ import paginationSearchFormatter from '../../utils/paginationSearchFormatter';
 
 // Поиск с пагинацией
 
-const questionSearch = async (req, res) => {
+const practiceSearch = async (req, res) => {
   const userId = get(req, 'userData.userId');
 
   try {
@@ -30,8 +30,8 @@ const questionSearch = async (req, res) => {
     //   query.accessType = { $eq: accessType };
     // }
 
-    const totalCountPromise = Question.countDocuments(query); // Находим кол-во результатов
-    const searchPromise = questionSearchQuery({ query, page, limit }); // Находим результат
+    const totalCountPromise = Practice.countDocuments(query); // Находим кол-во результатов
+    const searchPromise = practiceSearchQuery({ query, page, limit }); // Находим результат
 
     // Запускаем запросы параллельно
     const PromiseAllResult = await Promise.all([totalCountPromise, searchPromise]);
@@ -46,37 +46,29 @@ const questionSearch = async (req, res) => {
       searchResult: searchResult.payload,
     });
 
-    res.status(200).json(message.success('QuestionSearch ok', result));
+    res.status(200).json(message.success('PracticeSearch ok', result));
   } catch (error) {
-    const analyticsId = analytics('QUESTION_SEARCH_ERROR', {
+    const analyticsId = analytics('PRACTICE_SEARCH_ERROR', {
       error,
       body: req.body,
-      entity: 'Question',
+      entity: 'Practice',
       user: userId,
-      controller: 'questionSearch',
+      controller: 'practiceSearch',
     });
 
-    res.status(400).json(message.fail('QuestionSearch error', analyticsId));
+    res.status(400).json(message.fail('PracticeSearch error', analyticsId));
   }
 };
 
-export default questionSearch;
+export default practiceSearch;
 
-function questionSearchQuery({ query, page, limit }) {
-  return Question.find(query)
-    .populate({
-      path: 'answer',
-      select: 'name',
-    })
-    .populate({
-      path: 'practice',
-      select: 'practice',
-    })
+function practiceSearchQuery({ query, page, limit }) {
+  return Practice.find(query)
     .sort({ createdAt: -1 })
     .limit(limit)
     .skip(limit * (page - 1))
     .exec()
     .then((docs) => {
-      return message.success('Question found', docs);
+      return message.success('Practice found', docs);
     });
 }

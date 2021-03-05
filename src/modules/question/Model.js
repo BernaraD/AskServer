@@ -8,21 +8,46 @@ const Schema = mongoose.Schema(
       type: String,
       required: true,
     },
-
-    description: {
+    question: {
       type: String,
+      required: false,
+    },
+
+    telephone: {
+      type: String,
+      required: false,
+    },
+
+    notes: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+    },
+
+    answer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Answer',
+      required: false,
+    },
+
+    practice: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Practice',
       required: false,
     },
 
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: false,
     },
 
     resolved: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     // tags: [
     //   {

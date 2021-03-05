@@ -15,9 +15,9 @@ const userVerifyEmailSend = (req, res) => {
     .then(async (doc) => {
       if (doc) {
         const isEmailConfirmed = get(doc, 'emailConfirmation.confirmed', false);
-         if(newEmail !== doc.email) {
-           await userUpdateByIdQuery ({userId, values: {email: newEmail}})
-         }
+        if (newEmail !== doc.email) {
+          await userUpdateByIdQuery({ userId, values: { email: newEmail } });
+        }
 
         if (!isEmailConfirmed) {
           const email = doc.email;

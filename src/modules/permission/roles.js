@@ -24,10 +24,18 @@ const answer = [
   'answer.delete.own',
 ];
 
-const roles = {
-  new: ['user.auth', ...base, ...answer],
+const practice = [
+  'practice.create.own',
+  'practice.get.own',
+  'practice.search.own',
+  'practice.update.own',
+  'practice.delete.own',
+];
 
-  verified: ['user.auth', ...base, ...question, ...answer],
+const roles = {
+  new: ['user.auth'],
+
+  verified: ['user.auth', ...base, ...question, ...answer, ...practice],
 
   admin: [
     // USER

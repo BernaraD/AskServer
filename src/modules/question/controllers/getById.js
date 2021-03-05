@@ -19,6 +19,7 @@ export default async function questionGetById(req, res) {
       user: userId,
       controller: 'questionGetById',
     });
+
     res.status(400).json(message.fail('Question get error', analyticsId));
   }
 }

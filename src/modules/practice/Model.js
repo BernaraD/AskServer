@@ -4,25 +4,9 @@ const Schema = mongoose.Schema(
   {
     _id: mongoose.Schema.Types.ObjectId,
 
-    name: {
-      type: String,
-      required: true,
-    },
-
-    answer: {
+    practice: {
       type: String,
       required: false,
-    },
-
-    date: {
-      type: String,
-      required: false,
-    },
-
-    questionId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Question',
-      required: true,
     },
 
     owner: {
@@ -42,4 +26,4 @@ const Schema = mongoose.Schema(
   { timestamps: {}, versionKey: false },
 );
 
-export default mongoose.model('Answer', Schema);
+export default mongoose.model('Practice', Schema);

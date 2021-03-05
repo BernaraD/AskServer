@@ -14,14 +14,22 @@ export default async function answerCreate(req, res) {
 
   // Читаем данные из запроса
   const name = get(req, 'body.name');
-  const description = get(req, 'body.description');
+  const date = get(req, 'body.date');
+  const answer = get(req, 'body.answer');
+  const questionId = get(req, 'body.questionId');
 
   const createAnswerQueryResult = await createAnswerQuery({
     _id,
     name,
-    description,
+    answer,
+    questionId,
+    date,
+
     owner: userId,
   });
+
+  //update Client
+  // const addAnswerIdToQuestion = await
 
   if (createAnswerQueryResult.success) {
     res.status(200).json(createAnswerQueryResult);

@@ -13,12 +13,20 @@ export default async function questionCreate(req, res) {
 
   // Читаем данные из запроса
   const name = get(req, 'body.name');
-  const description = get(req, 'body.description');
+  const question = get(req, 'body.question');
+  const notes = get(req, 'body.notes');
+  const email = get(req, 'body.email');
+  const telephone = get(req, 'body.telephone');
+  const answer = get(req, 'body.answer');
 
   const createQuestionQueryResult = await createQuestionQuery({
     _id,
     name,
-    description,
+    question,
+    notes,
+    email,
+    telephone,
+    answer,
     owner: userId,
     resolved: false,
   });
